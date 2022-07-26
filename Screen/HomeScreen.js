@@ -5,6 +5,7 @@ import { Audio } from 'expo-av';
 
 const HomeScreen = () => {
     const [recording, setRecording] = React.useState();
+    
     async function startRecording() {
         try {
             console.log('Requesting submission...');
@@ -32,9 +33,18 @@ const HomeScreen = () => {
         console.log('Recording Stopped and srore as', uri)
     }
 
-  return (
+    function getDurationFormatted(millis) {
+        const minutes = millis / 1000 / 60;
+        const minutesDisplay = Math.floor(minutes);
+        const seconds = Math.round((minutes - minutesDisplay) * 60);
+        const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds;
+        return `${minutesDisplay} : ${secondsDisplay}`;
+        
+    }
+
+    return (
     <View>
-      <Text>Home Screen</Text>
+      <Text >Journal Voice Memo</Text>
       <Button title={recording ? 'Stop Recording' : 'Start Recording'} onPress={recording ? stopRecording : startRecording} />
 
     </View>
@@ -43,4 +53,23 @@ const HomeScreen = () => {
 
 export default HomeScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#ddffdd',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      fill: {
+        flex: 1,
+        margin: 16
+      },
+      button: {
+        margin: 16
+      }
+    });
